@@ -10,6 +10,7 @@ const Todo = () => {
   const [todos, setTodos] = useState(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [] );
   const data = useRef();
 
+// addTodos
   const addTodos = () => {
 
     const inputText = data.current.value.trim();
@@ -18,6 +19,7 @@ const Todo = () => {
       return null;
     }
 
+// newTodo
     const newTodo = {
       id: todos.length + 1,
       text: inputText,
@@ -28,6 +30,7 @@ const Todo = () => {
     data.current.value = "";
   };
 
+// Complete Todo
   const toggle = (id) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
@@ -40,12 +43,14 @@ const Todo = () => {
     });
   };
 
+// Delete Todos
   const deleteTodo = (id) => {
     setTodos((prevTodos) => {
       return prevTodos.filter((todo) => todo.id != id);
     });
   };
 
+// Store the Datas in localStorage
   useEffect(() => {
       localStorage.setItem("todos", JSON.stringify(todos));
     }, [todos]);
@@ -60,11 +65,13 @@ const Todo = () => {
         {/* Searching Bar */} 
         <div className='flex items-center bg-[#EEEEEE] rounded-full'>
 
+        {/* Form Bar */}
             <input ref={data} type="text" className='border-none outline-none p-3.5 flex-1 bg-transparent placeholder:text-slate-400 select-none' placeholder='Yeni bir görev gir' onKeyDown={(e) => {
             if (e.key === 'Enter') {
             addTodos();}
             }}/>
-
+            
+        {/* Add Todos Icon */}
             <div className='bg-[#00ADB5] h-full w-14 flex items-center justify-center rounded-r-full cursor-pointer' onClick={() => addTodos()} >
             <FaPlus className='size-6 text-[#EEEEEE]'/>
             </div>
