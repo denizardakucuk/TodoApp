@@ -50,34 +50,33 @@ const Todo = () => {
       localStorage.setItem("todos", JSON.stringify(todos));
     }, [todos]);
   
-  
 
   return (
     <div className='place-self-center bg-white w-[450px] h-[600px] p-12 flex flex-col gap-8 rounded-lg'>
 
-        {/* Baslik Kısmı */}
+        {/* Header TodoApp */}
         <h1 className='text-3xl font-semibold tracking-wider flex gap-2 items-center'><FaClipboardList /> Todo App</h1>
     
-
-        {/* Arama Kısmı */} 
+        {/* Searching Bar */} 
         <div className='flex items-center bg-[#EEEEEE] rounded-full'>
 
-            <input ref={data} type="text" className='border-none outline-none p-3.5 flex-1 bg-transparent placeholder:text-slate-400 select-none' placeholder='Yeni bir görev gir'/>
+            <input ref={data} type="text" className='border-none outline-none p-3.5 flex-1 bg-transparent placeholder:text-slate-400 select-none' placeholder='Yeni bir görev gir' onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+            addTodos();}
+            }}/>
 
-            <div className='bg-[#00ADB5] h-full w-14 flex items-center justify-center rounded-r-full cursor-pointer' onClick={() => addTodos()}>
+            <div className='bg-[#00ADB5] h-full w-14 flex items-center justify-center rounded-r-full cursor-pointer' onClick={() => addTodos()} >
             <FaPlus className='size-6 text-[#EEEEEE]'/>
             </div>
         </div>
 
-        {/* Listelenen Görevler */}
+        {/* Listed Todos */}
         <div className='mt-5'>
           {todos.map((todo) => (
               <TodoItem key={todo.id} todo={todo} toggle={toggle} deleteTodo={deleteTodo} />
             ))}
+
         </div>
-      
-
-
     </div>
   )
 }
